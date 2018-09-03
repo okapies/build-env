@@ -6,11 +6,13 @@ RUN sed -i 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/fastestmirror.conf && 
     sed -i 's|#baseurl=http://mirror.centos.org/centos/$releasever|baseurl=http://vault.centos.org/5.11|' /etc/yum.repos.d/*.repo
 
 RUN yum -y install make gcc gcc-c++ glibc-devel perl wget bzip2 curl && \
+    rpm -ivh http://archives.fedoraproject.org/pub/archive/epel/5/x86_64/epel-release-5-4.noarch.rpm && \
+    yum -y install --enablerepo=epel git && \
     rm -rf /var/lib/apt/lists/*
 
 RUN cd /usr/local/src && \
     echo 'b92b423b2f8f517c909fda2621ff2d7c  gcc-4.9.4.tar.gz' > gcc-4.9.4.tar.gz.md5 && \
-    wget http://www.netgull.com/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.gz && \
+    wget --no-check-certificate http://www.netgull.com/gcc/releases/gcc-4.9.4/gcc-4.9.4.tar.gz && \
     md5sum -c gcc-4.9.4.tar.gz.md5 && \
     tar xvzf gcc-4.9.4.tar.gz && \
     cd gcc-4.9.4 && \
