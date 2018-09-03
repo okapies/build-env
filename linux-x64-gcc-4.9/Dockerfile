@@ -24,5 +24,17 @@ RUN cd /usr/local/src && \
     rm -rf /usr/local/src/gcc-4.9.4 && \
     rm /usr/local/src/gcc-4.9.4.tar.gz*
 
+RUN cd /usr/local/src && \
+    echo '10109246a51102bfda45ff3935275fbf  cmake-3.12.1.tar.gz' > cmake-3.12.1.tar.gz.md5 && \
+    wget https://cmake.org/files/v3.12/cmake-3.12.1.tar.gz && \
+    md5sum -c cmake-3.12.1.tar.gz.md5 && \
+    tar xvzf cmake-3.12.1.tar.gz && \
+    cd cmake-3.12.1 && \
+    CC=/usr/local/gcc-4.9.4/bin/gcc CXX=/usr/local/gcc-4.9.4/bin/g++ ./bootstrap && \
+    make && \
+    make install && \
+    rm -rf /usr/local/src/cmake-3.12.1 && \
+    rm cmake-3.12.1.tar.gz*
+
 ENV PATH /usr/local/gcc-4.9.4/bin:$PATH
 ENV LD_LIBRARY_PATH /usr/local/gcc-4.9.4/lib64/:$LD_LIBRARY_PATH
