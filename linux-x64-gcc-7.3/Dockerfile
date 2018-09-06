@@ -16,7 +16,7 @@ RUN cd /usr/local/src && \
     mkdir -p build && \
     cd build && \
     ../configure --prefix=/usr/local/gcc-7.3.0 CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-languages=c,c++ --disable-bootstrap --disable-multilib && \
-    make -j$(grep -c processor /proc/cpuinfo) && \
+    make -j$(nproc) && \
     make install && \
     cd / && \
     rm -rf /usr/local/src/gcc-7.3.0 && \
@@ -31,8 +31,8 @@ RUN cd /usr/local/src && \
     sha256sum -c cmake-3.12.1.tar.gz.sha256 && \
     tar -zxf cmake-3.12.1.tar.gz && \
     cd cmake-3.12.1 && \
-    ./bootstrap --parallel=$(grep -c processor /proc/cpuinfo) && \
-    make -j$(grep -c processor /proc/cpuinfo) && \
+    ./bootstrap --parallel=$(nproc) && \
+    make -j$(nproc) && \
     make install && \
     cd / && \
     rm -rf /usr/local/src/cmake-3.12.1 && \
