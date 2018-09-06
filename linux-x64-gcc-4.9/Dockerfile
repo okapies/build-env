@@ -1,7 +1,8 @@
 FROM centos:centos6
 MAINTAINER Yuta Okamoto <okapies@gmail.com>
 
-RUN yum -y install make gcc gcc-c++ texinfo-tex flex zip libgcc.x86_64 glibc-devel.x86_64 perl wget bzip2 curl git && \
+RUN yum -y install make gcc gcc-c++ texinfo-tex flex zip libgcc.x86_64 glibc-devel.x86_64 \
+        autoconf automake libtool unzip perl wget bzip2 curl git && \
     yum -y install epel-release && \
     rm -rf /var/lib/apt/lists/*
 
