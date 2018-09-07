@@ -25,17 +25,15 @@ RUN cd /usr/local/src && \
 ENV PATH /usr/local/gcc-4.9.4/bin:$PATH
 ENV LD_LIBRARY_PATH /usr/local/gcc-5.2.0/lib64:/usr/local/gcc-5.2.0/lib:/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH
 
-RUN yum -y install cmake && \
-    cd /usr/local/src && \
+RUN cd /usr/local/src && \
     wget https://cmake.org/files/v3.12/cmake-3.12.1.tar.gz && \
     echo 'c53d5c2ce81d7a957ee83e3e635c8cda5dfe20c9d501a4828ee28e1615e57ab2  cmake-3.12.1.tar.gz' > cmake-3.12.1.tar.gz.sha256 && \
     sha256sum -c cmake-3.12.1.tar.gz.sha256 && \
     tar -zxf cmake-3.12.1.tar.gz && \
     cd cmake-3.12.1 && \
-    cmake -DCMAKE_BUILD_TYPE=Release . && \
+    ./bootstrap --parallel=$(nproc) && \
     make -j$(nproc) && \
     make install && \
     cd / && \
-    yum -y erase cmake && \
     rm -rf /usr/local/src/cmake-3.12.1 && \
     rm /usr/local/src/cmake-3.12.1.tar.gz*
