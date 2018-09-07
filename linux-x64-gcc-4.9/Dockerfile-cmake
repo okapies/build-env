@@ -1,13 +1,16 @@
 FROM okapies/buildenv:linux-x64-gcc-4.9-base
 MAINTAINER Yuta Okamoto <okapies@gmail.com>
 
+RUN yum -y install zlib-devel curl-devel && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN cd /usr/local/src && \
     wget https://cmake.org/files/v3.12/cmake-3.12.1.tar.gz && \
     echo 'c53d5c2ce81d7a957ee83e3e635c8cda5dfe20c9d501a4828ee28e1615e57ab2  cmake-3.12.1.tar.gz' > cmake-3.12.1.tar.gz.sha256 && \
     sha256sum -c cmake-3.12.1.tar.gz.sha256 && \
     tar -zxf cmake-3.12.1.tar.gz && \
     cd cmake-3.12.1 && \
-    ./bootstrap --parallel=$(nproc) && \
+    ./bootstrap --parallel=$(nproc) --system-curl && \
     make -j$(nproc) && \
     make install && \
     cd / && \
