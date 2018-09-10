@@ -23,4 +23,4 @@ RUN cd /usr/local/src && \
     rm /usr/local/src/gcc-4.9.4.tar.gz*
 
 ENV PATH /usr/local/gcc-4.9.4/bin:$PATH
-ENV LD_LIBRARY_PATH /usr/local/gcc-5.2.0/lib64:/usr/local/gcc-5.2.0/lib:/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH
+ENV LD_LIBRARY_PATH /usr/local/gcc-4.9.4/lib64:/usr/local/gcc-4.9.4/lib:/usr/local/lib64:/usr/local/lib:$LD_LIBRARY_PATH
