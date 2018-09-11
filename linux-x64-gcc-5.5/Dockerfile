@@ -15,7 +15,7 @@ RUN cd /usr/local/src && \
     ./contrib/download_prerequisites && \
     mkdir -p build && \
     cd build && \
-    ../configure --prefix=/usr/local/gcc-5.5.0 CFLAGS=-fPIC CXXFLAGS=-fPIC --enable-languages=c,c++ --disable-bootstrap --disable-multilib && \
+    ../configure --prefix=/usr/local/gcc-5.5.0 --enable-languages=c,c++ --disable-bootstrap --disable-multilib && \
     make -j$(nproc) && \
     make install && \
     cd / && \
