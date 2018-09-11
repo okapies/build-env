@@ -31,9 +31,9 @@ RUN cd /usr/local/src && \
         --enable-initfini-array \
         --disable-libgcj \
         --with-tune=generic \
-        --build=x86_64-linux-gnu \
-        --host=x86_64-linux-gnu \
-        --target=x86_64-linux-gnu \
+        --build=x86_64-CentOS-linux \
+        --host=x86_64-CentOS-linux \
+        --target=x86_64-CentOS-linux \
         --disable-multilib && \
     make BOOT_CFLAGS='-O2' -j$(nproc) && \
     make install && \
