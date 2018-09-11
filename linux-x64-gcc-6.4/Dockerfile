@@ -15,7 +15,7 @@ RUN cd /usr/local/src && \
     ./contrib/download_prerequisites && \
     mkdir -p build && \
     cd build && \
-    ../configure --prefix=/usr/local/gcc-6.4.0 --disable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-plugin --enable-initfini-array --disable-libgcj --disable-multilib && \
+    ../configure --prefix=/usr/local/gcc-6.4.0 --disable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++ --enable-plugin --enable-initfini-array --disable-libgcj --with-tune=generic --disable-multilib && \
     make BOOT_CFLAGS='-O2' -j$(nproc) && \
     make install && \
     cd / && \
