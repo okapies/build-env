@@ -1,0 +1,22 @@
+FROM centos:centos6
+MAINTAINER Yuta Okamoto <okapies@gmail.com>
+
+RUN yum install -y centos-release-scl && \
+    yum install -y scl-utils && \
+    INSTALL_PKGS="devtoolset-6-gcc devtoolset-6-gcc-c++ devtoolset-6-gcc-gfortran devtoolset-6-gdb zip unzip patch perl wget bzip2 curl git" && \
+    yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+    rpm -V $INSTALL_PKGS && \
+    yum clean -y all
+
+# Copy extra files to the image.
+COPY ./root/ /
+
+ENV PATH=/opt/rh/devtoolset-6/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Enable the SCL for all bash scripts.
+ENV BASH_ENV=/etc/scl_enable \
+    ENV=/etc/scl_enable \
+    PROMPT_COMMAND=". /etc/scl_enable"
+
+# Set the default CMD to print the usage of the language image
+ENTRYPOINT ["container-entrypoint"]
