@@ -21,8 +21,18 @@ RUN cd /usr/local/src && \
     rm -rf /usr/local/src/cmake-3.12.2 && \
     rm /usr/local/src/cmake-3.12.2.tar.gz*
 
+## Python
+RUN yum install -y https://centos6.iuscommunity.org/ius-release.rpm && \
+    yum install -y python36u python36u-libs python36u-devel python36u-pip && \
+    ln -s /usr/bin/python3.6 /usr/bin/python3 && \
+    ln -s /usr/bin/python3.6m /usr/bin/python3m && \
+    ln -s /usr/bin/pydoc3.6 /usr/bin/pydoc3 && \
+    ln -s /usr/bin/pip3.6 /usr/bin/pip3 && \
+    yum clean -y all
+
 ## OpenCV
-RUN yum install -y gtk2-devel numpy pkconfig ffmpeg && \
+RUN yum install -y gtk2-devel pkconfig ffmpeg && \
+    pip3 install numpy && \
     yum clean -y all
 
 RUN cd /usr/local/src && \
@@ -34,7 +44,20 @@ RUN cd /usr/local/src && \
     mkdir -p build && \
     cd build && \
     source scl_source enable devtoolset-6 && \
-    cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF -DBUILD_PERF_TESTS=OFF .. && \
+    cmake \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr/local \
+        -DPYTHON_DEFAULT_EXECUTABLE=/usr/bin/python3 \
+        -DBUILD_opencv_python2=OFF \
+        -DBUILD_opencv_python3=ON \
+        -DPYTHON3_LIBRARY=/usr/lib64/libpython3.6m.so \
+        -DPYTHON3_INCLUDE_DIR=/usr/include/python3.6m \ 
+        -DPYTHON3_PACKAGES_PATH=/usr/lib/python3.6/site-packages \
+        -DPYTHON3_EXECUTABLE=/usr/bin/python3 \
+        -DBUILD_EXAMPLES=OFF \
+        -DBUILD_TESTS=OFF \
+        -DBUILD_PERF_TESTS=OFF \
+        .. && \
     make -j$(nproc) && \
     make install && \
     cd / && \
