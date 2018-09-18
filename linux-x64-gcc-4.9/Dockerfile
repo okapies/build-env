@@ -52,6 +52,8 @@ RUN cd /usr/local/src && \
         -DPYTHON3_INCLUDE_DIR=/usr/include/python3.6m \ 
         -DPYTHON3_PACKAGES_PATH=/usr/lib/python3.6/site-packages \
         -DPYTHON3_EXECUTABLE=/usr/bin/python3 \
+        -DCPU_BASELINE=SSE4_2 \
+        -DCPU_DISPATCH= \
         -DBUILD_EXAMPLES=OFF \
         -DBUILD_TESTS=OFF \
         -DBUILD_PERF_TESTS=OFF \
