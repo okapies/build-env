@@ -1,0 +1,8 @@
+FROM scratch
+MAINTAINER Yuta Okamoto <okapies@gmail.com>
+
+# jq is invented by Stephen Dolan and distributed under MIT License
+# See https://github.com/stedolan/jq/blob/master/COPYING
+COPY bin/jq-linux64-1.5 /usr/local/bin/jq
+
+ENTRYPOINT [ "/usr/local/bin/jq" ]
